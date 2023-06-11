@@ -2,6 +2,8 @@
 #define _GLOBALS_HPP_
 
 //base, closest to intake is row four, furthest is row one
+//front is intake side
+
 #define onel_port 15
 #define twol_port 16
 #define threel_port 17
@@ -17,6 +19,7 @@
 
 //intake
 #define rollers_port 2
-#define flipper_port 12
+#define flipper_port 10
+//change back to port 12
 
 #endif

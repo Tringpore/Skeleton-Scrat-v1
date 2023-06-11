@@ -58,6 +58,9 @@ void opcontrol() {
     Motor threer(threer_port);
     Motor fourr(fourr_port);
 
+    //drive mode control
+    bool tankdrive = true;
+
     //catapult
     Motor catal(catal_port);
     Motor catar(catar_port);
@@ -66,7 +69,8 @@ void opcontrol() {
     Motor rollers(rollers_port);
     Motor flipper(flipper_port);
 
-    bool tankdrive = true;
+    //flipper control
+    bool flipper_lifted = true;
 
     while(true){
         double left, right;
@@ -97,29 +101,46 @@ void opcontrol() {
 
 		rollers.move(120 * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
 
-        flipper.move(100 * (master.get_digital(DIGITAL_X) - master.get_digital(DIGITAL_B)));
+        // manual flipper control
+        // flipper.move(100 * (master.get_digital(DIGITAL_X) - master.get_digital(DIGITAL_B)));
 
-        //double flipper_up = 0;
-        //double flipper_down = -100;
+        double flipper_up = 0;
+        double flipper_down = -100;
         //bool flipper_lifted = true;
 
         /*
+        if(master.get_digital_new_press(DIGITAL_R2)){
+            if(flipper_lifted){
+                flipper.move(50);
+                delay(200);
+                flipper_lifted = false;
+            }
+
+            else{
+                flipper.move(-50);
+                delay(200);
+                flipper_lifted = true;
+            }
+        }
+        */
+
         if(master.get_digital(DIGITAL_R2)){
             if(flipper_lifted){
                 flipper.move(-50);
-                delay(5);
-                flipper_lifted = !flipper_lifted;
+                delay(2000);
+                flipper_lifted = false;
             }
 
             else{
                 flipper.move(50);
-                delay(5);
-                flipper_lifted = flipper_lifted;
+                delay(2000);
+                flipper_lifted = true;
             }
         }
-        */
-        
 
+        else{
+            flipper.move(0);
+        }
 
         delay(5);
     }    
