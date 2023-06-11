@@ -71,6 +71,7 @@ void opcontrol() {
 
     //flipper control
     bool flipper_lifted = true;
+    //bool flipper_mid_pos = true;
 
     while(true){
         double left, right;
@@ -138,9 +139,27 @@ void opcontrol() {
             }
         }
 
+        else if(master.get_digital(DIGITAL_X)){
+            if (flipper.get_position() < 60){
+                flipper.move(50);
+            }
+        }
+
+        else if (master.get_digital(DIGITAL_B)){
+            if (flipper.get_position() >0){
+                flipper.move(-50);
+            }
+        }
+
         else{
             flipper.move(0);
         }
+
+        /*
+        if(master.get_digital(DIGITAL_X)){
+            flipper.move_absolute(1000,50);
+        }
+        */
 
         delay(5);
     }    
