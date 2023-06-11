@@ -109,21 +109,6 @@ void opcontrol() {
         double flipper_down = -100;
         //bool flipper_lifted = true;
 
-        /*
-        if(master.get_digital_new_press(DIGITAL_R2)){
-            if(flipper_lifted){
-                flipper.move(50);
-                delay(200);
-                flipper_lifted = false;
-            }
-
-            else{
-                flipper.move(-50);
-                delay(200);
-                flipper_lifted = true;
-            }
-        }
-        */
 
         if(master.get_digital(DIGITAL_R2)){
             if(flipper_lifted){
@@ -145,7 +130,7 @@ void opcontrol() {
             }
         }
 
-        else if (master.get_digital(DIGITAL_B)){
+        else if(master.get_digital(DIGITAL_B)){
             if (flipper.get_position() >0){
                 flipper.move(-50);
             }
@@ -154,12 +139,6 @@ void opcontrol() {
         else{
             flipper.move(0);
         }
-
-        /*
-        if(master.get_digital(DIGITAL_X)){
-            flipper.move_absolute(1000,50);
-        }
-        */
 
         delay(5);
     }    
