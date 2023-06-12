@@ -47,13 +47,13 @@ void flipper_control(){
     if(master.get_digital(DIGITAL_R2)){
         if(flipper_lifted){
             flipper.move(-flipper_power);
-            delay(275);
+            pros::delay(275);
             flipper_lifted = false;
         }
 
         else{
             flipper.move(flipper_power);
-            delay(400);
+            pros::delay(400);
             flipper_lifted = true;
         }
     }
@@ -78,22 +78,25 @@ void flipper_control(){
 }
 
 void cata_control(){
+
+    double cata_power = 120 * (-0.000000012 * pow(catarot.get_angle()/ 100, 4) + 1);
+
     //rot angle for ready pos is 7700-7800
 
     if(shoot){
         catal.move(120);
         catar.move(120);
-        delay(200);
+        pros::delay(200);
             
         catal.move(0);
         catar.move(0);
-        delay(100);
+        pros::delay(100);
         shoot = false;
     }
     
-    else if(catarot.get_angle() < 7700){
-        catal.move(60);
-        catar.move(60);
+    else if(catarot.get_angle() < 8500){
+        catal.move(cata_power);
+        catar.move(cata_power);
     }
     
     else{
@@ -103,7 +106,7 @@ void cata_control(){
     
     master.print(0, 0, "Rot Angle: %d", catarot.get_angle());
 
-    delay(5);
+    pros::delay(5);
 }
 
 void shootcata(){
