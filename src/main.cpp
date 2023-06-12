@@ -64,7 +64,6 @@ void opcontrol() {
     //catapult
     Motor catal(catal_port);
     Motor catar(catar_port);
-    Rotation catarot(catarot_port);
     bool shoot = true;
 
     //intake
@@ -74,8 +73,7 @@ void opcontrol() {
     //bool flipper_mid_pos = true;
 
     //clear controller screen
-    master.clear();
-    
+    master.clear();    
 
     while(true){
         double left, right;
@@ -121,7 +119,7 @@ void opcontrol() {
 
         current_display();
 
-        master.print(0, 0, "Rot Angle: %d", catarot.get_angle());
+        
 
         delay(5);
     }    

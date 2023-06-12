@@ -79,9 +79,8 @@ void flipper_control(){
 
 void cata_control(){
     //rot angle for ready pos is 7700-7800
+
     if(shoot){
-        delay(100);
-        /*
         catal.move(120);
         catar.move(120);
         delay(200);
@@ -90,10 +89,9 @@ void cata_control(){
         catar.move(0);
         delay(100);
         shoot = false;
-        */
     }
     
-    else if(catarot.get_angle() < 6000){
+    else if(catarot.get_angle() < 7700){
         catal.move(60);
         catar.move(60);
     }
@@ -103,8 +101,7 @@ void cata_control(){
         catar.move(0);
     }
     
-
-    printf("%d\n", catarot.get_angle());
+    master.print(0, 0, "Rot Angle: %d", catarot.get_angle());
 
     delay(5);
 }
