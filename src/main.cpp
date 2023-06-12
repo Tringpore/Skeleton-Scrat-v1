@@ -73,6 +73,10 @@ void opcontrol() {
     bool flipper_lifted = true;
     //bool flipper_mid_pos = true;
 
+    //clear controller screen
+    master.clear();
+    
+
     while(true){
         double left, right;
         if(master.get_digital_new_press(DIGITAL_Y)) tankdrive = !tankdrive;
@@ -82,10 +86,10 @@ void opcontrol() {
         } 
                 
         else {
-        double power =  master.get_analog(ANALOG_LEFT_Y);
-        double turn = master.get_analog(ANALOG_RIGHT_X);
-        left = power + turn;
-        right = power - turn;
+            double power =  master.get_analog(ANALOG_LEFT_Y);
+            double turn = master.get_analog(ANALOG_RIGHT_X);
+            left = power + turn;
+            right = power - turn;
         }
 
         onel.move(left);
@@ -105,40 +109,9 @@ void opcontrol() {
         // manual flipper control
         // flipper.move(100 * (master.get_digital(DIGITAL_X) - master.get_digital(DIGITAL_B)));
 
-        double flipper_up = 0;
-        double flipper_down = -100;
-        //bool flipper_lifted = true;
+        flipper_control();
 
-
-        if(master.get_digital(DIGITAL_R2)){
-            if(flipper_lifted){
-                flipper.move(-50);
-                delay(2000);
-                flipper_lifted = false;
-            }
-
-            else{
-                flipper.move(50);
-                delay(2000);
-                flipper_lifted = true;
-            }
-        }
-
-        else if(master.get_digital(DIGITAL_X)){
-            if (flipper.get_position() < 60){
-                flipper.move(50);
-            }
-        }
-
-        else if(master.get_digital(DIGITAL_B)){
-            if (flipper.get_position() >0){
-                flipper.move(-50);
-            }
-        }
-
-        else{
-            flipper.move(0);
-        }
+        current_display();
 
         delay(5);
     }    

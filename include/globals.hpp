@@ -19,7 +19,6 @@
 
 //intake
 #define rollers_port 2
-#define flipper_port 10
-//change back to port 12
+#define flipper_port 12
 
 #endif
