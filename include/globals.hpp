@@ -16,6 +16,7 @@
 //catapult
 #define catal_port 9
 #define catar_port 20
+#define catarot_port 3
 
 //intake
 #define rollers_port 2

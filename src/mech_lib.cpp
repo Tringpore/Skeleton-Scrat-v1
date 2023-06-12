@@ -16,11 +16,12 @@ Motor fourr(fourr_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);
 //catapult
 Motor catal(catal_port, E_MOTOR_GEARSET_18, false, E_MOTOR_ENCODER_DEGREES);
 Motor catar(catar_port, E_MOTOR_GEARSET_18, true, E_MOTOR_ENCODER_DEGREES);
+Rotation catarot(catarot_port);
+bool shoot = true;
 
 //intake
 Motor rollers(rollers_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);
 Motor flipper(flipper_port, E_MOTOR_GEARSET_36, true, E_MOTOR_ENCODER_DEGREES);
-
 bool flipper_lifted = true;
 
 
@@ -73,5 +74,41 @@ void flipper_control(){
        flipper.move(0);
     }
 
-    master.print(0, 0, "Flipper: %d", flipper_lifted);
+    //master.print(0, 0, "Flipper: %d", flipper_lifted);
+}
+
+void cata_control(){
+    //rot angle for ready pos is 7700-7800
+    if(shoot){
+        delay(100);
+        /*
+        catal.move(120);
+        catar.move(120);
+        delay(200);
+            
+        catal.move(0);
+        catar.move(0);
+        delay(100);
+        shoot = false;
+        */
+    }
+    
+    else if(catarot.get_angle() < 6000){
+        catal.move(60);
+        catar.move(60);
+    }
+    
+    else{
+        catal.move(0);
+        catar.move(0);
+    }
+    
+
+    printf("%d\n", catarot.get_angle());
+
+    delay(5);
+}
+
+void shootcata(){
+    shoot = true;
 }

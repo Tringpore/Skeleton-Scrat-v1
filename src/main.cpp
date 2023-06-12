@@ -64,12 +64,12 @@ void opcontrol() {
     //catapult
     Motor catal(catal_port);
     Motor catar(catar_port);
+    Rotation catarot(catarot_port);
+    bool shoot = true;
 
     //intake
     Motor rollers(rollers_port);
     Motor flipper(flipper_port);
-
-    //flipper control
     bool flipper_lifted = true;
     //bool flipper_mid_pos = true;
 
@@ -101,17 +101,27 @@ void opcontrol() {
         threer.move(right);
         fourr.move(right);
 
+        /*
+        manual cata control
         catal.move(120 * (master.get_digital(DIGITAL_R1)));
 		catar.move(120 * (master.get_digital(DIGITAL_R1)));
+        */
+        
+        if(master.get_digital_new_press(DIGITAL_R1)) shootcata();
+	    
+        rollers.move(120 * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
 
-		rollers.move(120 * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
+        /* manual flipper control
+        flipper.move(100 * (master.get_digital(DIGITAL_X) - master.get_digital(DIGITAL_B)));
+        */
 
-        // manual flipper control
-        // flipper.move(100 * (master.get_digital(DIGITAL_X) - master.get_digital(DIGITAL_B)));
+        cata_control();
 
         flipper_control();
 
         current_display();
+
+        master.print(0, 0, "Rot Angle: %d", catarot.get_angle());
 
         delay(5);
     }    
