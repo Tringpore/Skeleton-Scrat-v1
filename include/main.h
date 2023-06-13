@@ -35,7 +35,7 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
-#include "mech_lib.hpp"
+//#include "mech_lib.hpp"
 #include "globals.hpp"
 
 /**

@@ -44,16 +44,17 @@ void flipper_control(){
     
     double flipper_power = 100;
 
+    /*
     if(master.get_digital(DIGITAL_R2)){
         if(flipper_lifted){
             flipper.move(-flipper_power);
-            pros::delay(275);
+            delay(275);
             flipper_lifted = false;
         }
 
         else{
             flipper.move(flipper_power);
-            pros::delay(400);
+            delay(400);
             flipper_lifted = true;
         }
     }
@@ -73,28 +74,61 @@ void flipper_control(){
     else{
        flipper.move(0);
     }
+    */
+   
+   /*
+   if(master.get_digital(DIGITAL_R2)){
+        if(flipper_lifted){
+            flipper.move(-flipper_power);
+            delay(275);
+            flipper.move(-flipper_power/ 10);
+            delay(500);
+            flipper.tare_position();
+            flipper_lifted = false;
+            flipper.move(0);
+        }
 
-    //master.print(0, 0, "Flipper: %d", flipper_lifted);
+        else{
+            flipper.move(flipper_power);
+            delay(400);
+            flipper_lifted = true;
+        }
+   }
+    */
+
+   if(master.get_digital(DIGITAL_R2)){
+    if(flipper.get_position() < 100){
+        flipper.move(-flipper_power);
+    }
+    
+    else if(flipper.get_position() > 200){
+        flipper.move(flipper_power);
+    }
+
+    else{
+        flipper.move(0);
+    }
+   }
+   
+
+    //prints weird values
+    //master.print(1, 0, "Flipper: %d", flipper.get_position());
 }
 
 void cata_control(){
-
-    double cata_power = 120 * (-0.000000012 * pow(catarot.get_angle()/ 100, 4) + 1);
-
-    //rot angle for ready pos is 7700-7800
-
+    double cata_power = 120 * (-0.000000008 * pow(catarot.get_angle()/ 100, 4) + 1);
     if(shoot){
         catal.move(120);
         catar.move(120);
-        pros::delay(200);
-            
+        delay(200);
         catal.move(0);
         catar.move(0);
-        pros::delay(100);
+        delay(100);
         shoot = false;
+        catarot.reset();
     }
-    
-    else if(catarot.get_angle() < 8500){
+
+    else if(catarot.get_angle() < 8100){
         catal.move(cata_power);
         catar.move(cata_power);
     }
@@ -105,8 +139,7 @@ void cata_control(){
     }
     
     master.print(0, 0, "Rot Angle: %d", catarot.get_angle());
-
-    pros::delay(5);
+    delay(5);
 }
 
 void shootcata(){

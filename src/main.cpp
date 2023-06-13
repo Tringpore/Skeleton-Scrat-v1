@@ -64,6 +64,7 @@ void opcontrol() {
     //catapult
     Motor catal(catal_port);
     Motor catar(catar_port);
+    Rotation catarot(catarot_port);
     bool shoot = true;
 
     //intake
@@ -71,9 +72,13 @@ void opcontrol() {
     Motor flipper(flipper_port);
     bool flipper_lifted = true;
     //bool flipper_mid_pos = true;
+    //flipper.tare_position();
 
     //clear controller screen
-    master.clear();    
+    master.clear();
+
+    //clear cata rot sensor
+    catarot.reset();    
 
     while(true){
         double left, right;
@@ -115,7 +120,7 @@ void opcontrol() {
 
         cata_control();
 
-        flipper_control();
+        //flipper_control();
 
         current_display();
 
