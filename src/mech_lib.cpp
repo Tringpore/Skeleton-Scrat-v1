@@ -138,7 +138,7 @@ void cata_control(){
         shoot = false;
     }
 
-    else if(cata_error > 675){
+    else if(cata_error > 650){
         catal.move(cata_power);
         catar.move(cata_power);
     }

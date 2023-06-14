@@ -25,7 +25,7 @@ void initialize() {
     Motor catal(catal_port, E_MOTOR_GEARSET_18, false, E_MOTOR_ENCODER_DEGREES);
     Motor catar(catar_port, E_MOTOR_GEARSET_18, true, E_MOTOR_ENCODER_DEGREES);
     Rotation catarot(catarot_port);
-    catarot.reset();  
+    //catarot.reset();  
 
     //intake
     Motor rollers(rollers_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);
@@ -67,7 +67,7 @@ void opcontrol() {
     Motor catal(catal_port);
     Motor catar(catar_port);
     Rotation catarot(catarot_port);
-    bool shoot = true;
+    bool shoot = false;
 
     //intake
     Motor rollers(rollers_port);
@@ -80,9 +80,9 @@ void opcontrol() {
     master.clear();
 
     //clear cata rot sensor
-    catarot.reset();    
+    catarot.reset();
 
-    delay(1000);
+    delay(100);
 
     while(true){
         double left, right;
@@ -127,8 +127,6 @@ void opcontrol() {
         flipper_control();
 
         current_display();
-
-        
 
         delay(5);
     }    
