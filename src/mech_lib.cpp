@@ -40,8 +40,32 @@ void current_display(){
     screen::print(TEXT_SMALL, 11, "flipper: %3d", flipper.get_current_draw());
 }
 
+double flipper_targ = 0;
+int flipper_state = 0;
+
 void flipper_control(){
-    master.print(1, 0, "Flipper: %.2f", flipper.get_position());
+    double flipper_power = 100;
+    double flipper_kp = 2;
+    flipper.set_brake_mode(E_MOTOR_BRAKE_HOLD);
+
+    flipper.move((flipper_targ - flipper.get_position()) * flipper_kp);
+
+    if(master.get_digital_new_press(DIGITAL_R2)){
+        if(flipper_state != 2){
+            flipper_targ = -120;
+            flipper_state = 2;
+        }
+        else{
+            //flipper is down
+            flipper_targ = -5;
+            flipper_state = 0;
+        }
+    }
+
+    else if(master.get_digital_new_press(DIGITAL_X)){
+        flipper_targ = -60;
+        flipper_state = 1;
+    }
 }
 
 /*
