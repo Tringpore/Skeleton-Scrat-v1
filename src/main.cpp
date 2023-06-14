@@ -24,6 +24,8 @@ void initialize() {
     //catapult
     Motor catal(catal_port, E_MOTOR_GEARSET_18, false, E_MOTOR_ENCODER_DEGREES);
     Motor catar(catar_port, E_MOTOR_GEARSET_18, true, E_MOTOR_ENCODER_DEGREES);
+    Rotation catarot(catarot_port);
+    catarot.reset();  
 
     //intake
     Motor rollers(rollers_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);

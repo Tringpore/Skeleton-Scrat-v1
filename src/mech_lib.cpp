@@ -116,7 +116,10 @@ void flipper_control(){
 }
 
 void cata_control(){
-    double cata_power = 120 * (-0.000000008 * pow(catarot.get_angle()/ 100, 4) + 1);
+    // double cata_power = 120 * (-0.000000008 * pow(catarot.get_angle()/ 100, 4) + 1);
+    double cata_error = 36000 - catarot.get_angle();
+    double cata_power = 127 * 1/ 4.8 * (log((cata_error/100) + 18));
+    
     if(shoot){
         catal.move(120);
         catar.move(120);
@@ -125,10 +128,10 @@ void cata_control(){
         catar.move(0);
         delay(100);
         shoot = false;
-        catarot.reset();
+        //catarot.reset();
     }
 
-    else if(catarot.get_angle() < 8100){
+    else if(cata_error > 0){
         catal.move(cata_power);
         catar.move(cata_power);
     }
@@ -137,7 +140,7 @@ void cata_control(){
         catal.move(0);
         catar.move(0);
     }
-    
+
     master.print(0, 0, "Rot Angle: %d", catarot.get_angle());
     delay(5);
 }
