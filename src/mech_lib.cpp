@@ -54,98 +54,21 @@ void flipper_control(){
         if(flipper_state != 2){
             flipper_targ = -120;
             flipper_state = 2;
+            //flipper is now up
         }
         else{
-            //flipper is down
             flipper_targ = -5;
             flipper_state = 0;
+            //flipper is now down
         }
     }
 
     else if(master.get_digital_new_press(DIGITAL_X)){
         flipper_targ = -60;
         flipper_state = 1;
+        //flipper is now in middle pos
     }
 }
-
-/*
-void flipper_control(){
-    
-    double flipper_power = 100;
-
-    
-    if(master.get_digital(DIGITAL_R2)){
-        if(flipper_lifted){
-            flipper.move(-flipper_power);
-            delay(275);
-            flipper_lifted = false;
-        }
-
-        else{
-            flipper.move(flipper_power);
-            delay(400);
-            flipper_lifted = true;
-        }
-    }
-
-    else if(master.get_digital(DIGITAL_X)){
-        if (flipper.get_position() < 60){
-            flipper.move(50);
-        }
-    }
-
-    else if(master.get_digital(DIGITAL_B)){
-        if (flipper.get_position() >0){
-            flipper.move(-50);
-        }
-    }
-
-    else{
-       flipper.move(0);
-    }
-    
-*/
-   
-   /*
-   if(master.get_digital(DIGITAL_R2)){
-        if(flipper_lifted){
-            flipper.move(-flipper_power);
-            delay(275);
-            flipper.move(-flipper_power/ 10);
-            delay(500);
-            flipper.tare_position();
-            flipper_lifted = false;
-            flipper.move(0);
-        }
-
-        else{
-            flipper.move(flipper_power);
-            delay(400);
-            flipper_lifted = true;
-        }
-   }
-    */
-
-   /*
-   if(master.get_digital(DIGITAL_R2)){
-    if(flipper.get_position() < 100){
-        flipper.move(-flipper_power);
-    }
-    
-    else if(flipper.get_position() > 200){
-        flipper.move(flipper_power);
-    }
-
-    else{
-        flipper.move(0);
-    }
-   }
-   */
-
-    //prints weird values
-    //master.print(1, 0, "Flipper: %d", onel.get_position());
-// }
-
 
 void cata_control(){
     // double cata_power = 120 * (-0.000000008 * pow(catarot.get_angle()/ 100, 4) + 1);
@@ -162,7 +85,7 @@ void cata_control(){
         shoot = false;
     }
 
-    else if(cata_error > 650){
+    else if(cata_error > 620){
         catal.move(cata_power);
         catar.move(cata_power);
     }

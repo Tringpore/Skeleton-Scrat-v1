@@ -25,7 +25,6 @@ void initialize() {
     Motor catal(catal_port, E_MOTOR_GEARSET_18, false, E_MOTOR_ENCODER_DEGREES);
     Motor catar(catar_port, E_MOTOR_GEARSET_18, true, E_MOTOR_ENCODER_DEGREES);
     Rotation catarot(catarot_port);
-    //catarot.reset();  
 
     //intake
     Motor rollers(rollers_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);
@@ -73,8 +72,6 @@ void opcontrol() {
     Motor rollers(rollers_port);
     Motor flipper(flipper_port);
     bool flipper_lifted = true;
-    //bool flipper_mid_pos = true;
-    //flipper.tare_position();
 
     //clear controller screen
     master.clear();
@@ -107,20 +104,10 @@ void opcontrol() {
         twor.move(right);
         threer.move(right);
         fourr.move(right);
-
-        /*
-        manual cata control
-        catal.move(120 * (master.get_digital(DIGITAL_R1)));
-		catar.move(120 * (master.get_digital(DIGITAL_R1)));
-        */
         
         if(master.get_digital_new_press(DIGITAL_R1)) shootcata();
 	    
         rollers.move(120 * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
-
-        /* manual flipper control
-        flipper.move(100 * (master.get_digital(DIGITAL_X) - master.get_digital(DIGITAL_B)));
-        */
 
         cata_control();
 
