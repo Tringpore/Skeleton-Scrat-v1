@@ -82,6 +82,8 @@ void opcontrol() {
     //clear cata rot sensor
     catarot.reset();    
 
+    delay(1000);
+
     while(true){
         double left, right;
         if(master.get_digital_new_press(DIGITAL_Y)) tankdrive = !tankdrive;
@@ -122,7 +124,7 @@ void opcontrol() {
 
         cata_control();
 
-        //flipper_control();
+        flipper_control();
 
         current_display();
 

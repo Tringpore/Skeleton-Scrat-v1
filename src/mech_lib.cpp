@@ -17,7 +17,7 @@ Motor fourr(fourr_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);
 Motor catal(catal_port, E_MOTOR_GEARSET_18, false, E_MOTOR_ENCODER_DEGREES);
 Motor catar(catar_port, E_MOTOR_GEARSET_18, true, E_MOTOR_ENCODER_DEGREES);
 Rotation catarot(catarot_port);
-bool shoot = true;
+bool shoot = false;
 
 //intake
 Motor rollers(rollers_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);
@@ -41,10 +41,15 @@ void current_display(){
 }
 
 void flipper_control(){
+    master.print(1, 0, "Flipper: %.2f", flipper.get_position());
+}
+
+/*
+void flipper_control(){
     
     double flipper_power = 100;
 
-    /*
+    
     if(master.get_digital(DIGITAL_R2)){
         if(flipper_lifted){
             flipper.move(-flipper_power);
@@ -74,7 +79,8 @@ void flipper_control(){
     else{
        flipper.move(0);
     }
-    */
+    
+*/
    
    /*
    if(master.get_digital(DIGITAL_R2)){
@@ -96,6 +102,7 @@ void flipper_control(){
    }
     */
 
+   /*
    if(master.get_digital(DIGITAL_R2)){
     if(flipper.get_position() < 100){
         flipper.move(-flipper_power);
@@ -109,11 +116,12 @@ void flipper_control(){
         flipper.move(0);
     }
    }
-   
+   */
 
     //prints weird values
-    //master.print(1, 0, "Flipper: %d", flipper.get_position());
-}
+    //master.print(1, 0, "Flipper: %d", onel.get_position());
+// }
+
 
 void cata_control(){
     // double cata_power = 120 * (-0.000000008 * pow(catarot.get_angle()/ 100, 4) + 1);
@@ -128,10 +136,9 @@ void cata_control(){
         catar.move(0);
         delay(100);
         shoot = false;
-        //catarot.reset();
     }
 
-    else if(cata_error > 0){
+    else if(cata_error > 675){
         catal.move(cata_power);
         catar.move(cata_power);
     }
