@@ -21,8 +21,9 @@ bool shoot = false;
 
 //intake
 Motor rollers(rollers_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);
-Motor flipper(flipper_port, E_MOTOR_GEARSET_36, true, E_MOTOR_ENCODER_DEGREES);
-bool flipper_lifted = true;
+Motor flipper(flipper_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES); //change to gearset_36 if using flipper
+Rotation flipperrot(flipperrot_port);
+// bool flipper_lifted = true;
 
 
 void current_display(){
@@ -40,10 +41,72 @@ void current_display(){
     screen::print(TEXT_SMALL, 11, "flipper: %3d", flipper.get_current_draw());
 }
 
-double flipper_targ = 0;
+double flipper_targ = 0, flipper_power = 100, flipper_kp = 15, intake_power = 120, flipper_pos = (flipper_targ - flipper.get_position()) * flipper_kp;
 int flipper_state = 0;
 
 void flipper_control(){
+    rollers.move(-intake_power * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
+    flipper.move(intake_power * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
+    if(flipperrot.get_position() > 0){
+       //flipper_targ = 0;
+       //rollers.move((flipper_targ - flipperrot.get_position()) * flipper_kp);
+       rollers.move(-40);
+       flipper.move(0);
+       //flipper.set_brake_mode(E_MOTOR_BRAKE_HOLD);
+    }
+
+    else{
+        flipper.move(0);
+        rollers.move(0);
+    }
+    
+   
+    /*
+    if(master.get_digital(DIGITAL_L2)){
+        //outake
+        rollers.move(intake_power);
+        flipper.move(-intake_power);
+    }
+
+    else if(master.get_digital(DIGITAL_L1)){
+        //intake
+        rollers.move(-intake_power);
+        flipper.move(intake_power);
+    }
+
+    else{
+        rollers.move(0);
+        flipper.move(0);
+    }
+    */
+
+    // rollers.move(intake_power * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
+    // flipper.move(-intake_power * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
+    
+
+    /*
+    if(master.get_digital_new_press(DIGITAL_R2)){
+        if(flipper_state = 0){
+            //flipper is now up
+            flipper_targ = 275; //change 120 to down state
+            flipper.move(flipper_pos);
+            rollers.move(-flipper_pos);
+            flipper_state = 1;
+            //flipper is now down
+        }
+
+        else{
+            //flipper is now down
+            flipper_targ = 0; //change 0 to up state
+            flipper.move(-flipper_pos);
+            flipper.move(flipper_pos);
+            flipper_state = 0;
+            //flipper is now up
+        }
+    }
+    */
+
+    /*
     double flipper_power = 100;
     double flipper_kp = 2;
     flipper.set_brake_mode(E_MOTOR_BRAKE_HOLD);
@@ -68,6 +131,7 @@ void flipper_control(){
         flipper_state = 1;
         //flipper is now in middle pos
     }
+    */
 }
 
 void cata_control(){

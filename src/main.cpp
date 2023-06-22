@@ -28,7 +28,8 @@ void initialize() {
 
     //intake
     Motor rollers(rollers_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES);
-    Motor flipper(flipper_port, E_MOTOR_GEARSET_36, true, E_MOTOR_ENCODER_DEGREES);
+    Motor flipper(flipper_port, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_DEGREES); //change to gearset_36 if using flipper
+    Rotation flipperrot(flipperrot_port);
 }
 
 void disabled() {
@@ -107,9 +108,9 @@ void opcontrol() {
         
         if(master.get_digital_new_press(DIGITAL_R1)) shootcata();
 	    
-        rollers.move(120 * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
+        // rollers.move(120 * (master.get_digital(DIGITAL_L1) - master.get_digital(DIGITAL_L2)));
 
-        cata_control();
+        //cata_control();
 
         flipper_control();
 

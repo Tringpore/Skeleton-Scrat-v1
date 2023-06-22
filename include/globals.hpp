@@ -19,7 +19,8 @@
 #define catarot_port 3
 
 //intake
-#define rollers_port 2
-#define flipper_port 12
+#define rollers_port 2 //originally 2
+#define flipper_port 11 //originally 12
+#define flipperrot_port 12 //originally not used
 
 #endif
